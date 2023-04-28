@@ -11,7 +11,7 @@ export const SourcingSearch = ({
   const pattern = new RegExp(`${searchQ}`, "gi");
 
   return (
-    <div className="absolute top-[60px] z-[9999] flex h-auto w-full flex-col overflow-hidden rounded-xl border border-light-700 bg-white">
+    <div className="absolute top-[50px] z-[9999] flex h-auto w-full flex-col overflow-hidden rounded-xl border border-light-700 bg-white">
       {info.map((n: any, i: number) => {
         const name = String(n[1])
           .replace(pattern, (m: string) => `.<${m}.`)

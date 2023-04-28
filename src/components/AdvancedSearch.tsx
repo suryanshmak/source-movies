@@ -14,9 +14,9 @@ export const AdvancedSearch = ({
   useEffect(() => {
     const handleClick = (e: any) => {
       if (!autocompleteRef.current?.contains(e.target)) {
-        if (autocompleteRef.current) {
-          autocompleteRef.current.classList.remove("opacity-100");
-          autocompleteRef.current.classList.add("opacity-0");
+        if (autocompleteRef.current?.children[1]) {
+          autocompleteRef.current?.children[1].classList.remove("opacity-100");
+          autocompleteRef.current?.children[1].classList.add("opacity-0");
         }
       }
     };
@@ -25,7 +25,7 @@ export const AdvancedSearch = ({
   }, []);
 
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col" ref={autocompleteRef}>
       <Input
         disableHeading
         onChange={(e) => setQuery(e.target.value)}
@@ -33,17 +33,19 @@ export const AdvancedSearch = ({
           if (e.key == "Backspace") {
           }
           if (e.key === "Enter") {
-            if (autocompleteRef.current) {
-              autocompleteRef.current.classList.remove("opacity-100");
-              autocompleteRef.current.classList.add("opacity-0");
+            if (autocompleteRef.current?.children[1]) {
+              autocompleteRef.current?.children[1].classList.remove(
+                "opacity-100"
+              );
+              autocompleteRef.current?.children[1].classList.add("opacity-0");
             }
             updateParams();
           }
         }}
         onFocus={() => {
-          if (autocompleteRef.current) {
-            autocompleteRef.current.classList.remove("opacity-0");
-            autocompleteRef.current.classList.add("opacity-100");
+          if (autocompleteRef.current?.children[1]) {
+            autocompleteRef.current?.children[1].classList.remove("opacity-0");
+            autocompleteRef.current?.children[1].classList.add("opacity-100");
           }
         }}
         prepend={AiOutlineSearch}
@@ -53,7 +55,7 @@ export const AdvancedSearch = ({
         height="2.8rem"
         value={query}
       />
-      <div ref={autocompleteRef}>
+      <div>
         {autocompleteData && autocompleteData.results.length ? (
           <SourcingSearch
             query={query}
