@@ -14,9 +14,9 @@ export const AdvancedSearch = ({
   useEffect(() => {
     const handleClick = (e: any) => {
       if (!autocompleteRef.current?.contains(e.target)) {
-        if (autocompleteRef.current?.children[1]) {
-          autocompleteRef.current?.children[1].classList.remove("opacity-100");
-          autocompleteRef.current?.children[1].classList.add("opacity-0");
+        if (autocompleteRef.current) {
+          autocompleteRef.current.classList.remove("opacity-100");
+          autocompleteRef.current.classList.add("opacity-0");
         }
       }
     };
@@ -33,25 +33,17 @@ export const AdvancedSearch = ({
           if (e.key == "Backspace") {
           }
           if (e.key === "Enter") {
-            if (autocompleteRef.current?.lastElementChild) {
-              autocompleteRef.current?.lastElementChild.classList.remove(
-                "opacity-100"
-              );
-              autocompleteRef.current?.lastElementChild.classList.add(
-                "opacity-0"
-              );
+            if (autocompleteRef.current) {
+              autocompleteRef.current.classList.remove("opacity-100");
+              autocompleteRef.current.classList.add("opacity-0");
             }
             updateParams();
           }
         }}
         onFocus={() => {
-          if (autocompleteRef.current?.lastElementChild) {
-            autocompleteRef.current?.lastElementChild.classList.remove(
-              "opacity-0"
-            );
-            autocompleteRef.current?.lastElementChild.classList.add(
-              "opacity-100"
-            );
+          if (autocompleteRef.current) {
+            autocompleteRef.current.classList.remove("opacity-0");
+            autocompleteRef.current.classList.add("opacity-100");
           }
         }}
         prepend={AiOutlineSearch}
