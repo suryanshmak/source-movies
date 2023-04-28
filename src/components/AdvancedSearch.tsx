@@ -11,21 +11,11 @@ export const AdvancedSearch = ({
 }: any) => {
   const autocompleteRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClick = (e: any) => {
-      if (!autocompleteRef.current?.contains(e.target)) {
-        if (autocompleteRef.current?.children[1]) {
-          autocompleteRef.current?.children[1].classList.remove("opacity-100");
-          autocompleteRef.current?.children[1].classList.add("opacity-0");
-        }
-      }
-    };
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  }, []);
-
   return (
-    <div className="relative flex flex-col" ref={autocompleteRef}>
+    <div
+      className="relative flex flex-col [&>main]:focus-within:opacity-100 [&>main]:opacity-0"
+      ref={autocompleteRef}
+    >
       <Input
         disableHeading
         onChange={(e) => setQuery(e.target.value)}
@@ -42,12 +32,6 @@ export const AdvancedSearch = ({
             updateParams();
           }
         }}
-        onFocus={() => {
-          if (autocompleteRef.current?.children[1]) {
-            autocompleteRef.current?.children[1].classList.remove("opacity-0");
-            autocompleteRef.current?.children[1].classList.add("opacity-100");
-          }
-        }}
         prepend={AiOutlineSearch}
         containerClassName="border-light-600"
         className="w-[90%] focus-within:w-full"
@@ -55,7 +39,7 @@ export const AdvancedSearch = ({
         height="2.8rem"
         value={query}
       />
-      <div>
+      <main>
         {autocompleteData && autocompleteData.results.length ? (
           <SourcingSearch
             query={query}
@@ -64,7 +48,7 @@ export const AdvancedSearch = ({
               .map((col: any) => [col.poster_path, col.original_title])}
           />
         ) : null}
-      </div>
+      </main>
     </div>
   );
 };
